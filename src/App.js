@@ -20,6 +20,7 @@ function App() {
         setHour(Math.floor(count / 3600));
       }
     }
+    // eslint-disable-next-line
   }, [count, min, hour,pause]);
 
   const reset = () => {
