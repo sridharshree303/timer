@@ -21,7 +21,7 @@ function App() {
       }
     }
     // eslint-disable-next-line
-  }, [count, min, hour,pause]);
+  }, [count, min, hour, pause]);
 
   const reset = () => {
     setCount(0);
@@ -36,15 +36,17 @@ function App() {
 
   return (
     <>
-      <div className='App App-header'>
-        <h1>{String(hour).padStart(2, 0)} : {String(min).padStart(2, 0)} : {String(count % 60).padStart(2, 0)}</h1>
-        <div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={stop}>
-            {
-              pause ? <span>Resume</span> : <span>Pause</span>
-            }
-          </button>
+      <div className='App container-fluid App-header'>
+        <div className='row'>
+          <h1 className='pb-4'>{String(hour).padStart(2, 0)} : {String(min).padStart(2, 0)} : {String(count % 60).padStart(2, 0)}</h1>
+          <div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={stop}>
+              {
+                pause ? <span>Resume</span> : <span>Pause</span>
+              }
+            </button>
+          </div>
         </div>
       </div>
     </>
