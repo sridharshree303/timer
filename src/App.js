@@ -1,25 +1,53 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react'
 import './App.css';
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [min, setMin] = useState(0);
+  const [hour, setHour] = useState(0);
+  const [pause, setPause] = useState(false);
+
+  const tick = () => {
+    setCount(count + 1);
+  }
+
+  useEffect(() => {
+    if (!pause) {
+      const interval = setInterval(tick, 1000);
+      return () => {
+        clearInterval(interval);
+        setMin(Math.floor(count / 60));
+        setHour(Math.floor(count / 3600));
+      }
+    }
+  }, [count, min, hour,pause]);
+
+  const reset = () => {
+    setCount(0);
+    setMin(0);
+    setHour(0);
+    setPause(false);
+  }
+
+  const stop = () => {
+    setPause(!pause);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div className='App App-header'>
+        <h1>{String(hour).padStart(2, 0)} : {String(min).padStart(2, 0)} : {String(count % 60).padStart(2, 0)}</h1>
+        <div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={stop}>
+            {
+              pause ? <span>Resume</span> : <span>Pause</span>
+            }
+          </button>
+        </div>
+      </div>
+    </>
+  )
 }
 
 export default App;
